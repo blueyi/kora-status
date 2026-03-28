@@ -2,40 +2,35 @@ name: Static Site CI
 on:
   schedule:
     - cron: "0 1 * * *"
+  repository_dispatch:
+    types: [site]
   workflow_dispatch:
-  push:
-    branches:
-      - main
 jobs:
-  site:
+  release:
+    name: Deploy status page
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: upptime/uptime-monitor@v1.39.0
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          command: site
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GH_PAT || github.token }}
+      - name: Build site
+        uses: upptime/uptime-monitor@v1.41.0
+        with:
+          command: "site"
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      - name: Prepare site output
+          GH_PAT: ${{ secrets.GH_PAT || github.token }}
+      - name: Prepare and deploy
         run: |
           EXPORT_DIR=$(find $GITHUB_WORKSPACE -path "*__sapper__/export" -type d | head -1)
-          echo "Export dir: $EXPORT_DIR"
           mkdir -p /tmp/site-output
           cp -r "$EXPORT_DIR"/* /tmp/site-output/
-          # Also copy data files so the SPA can read them locally
-          if [ -d "$GITHUB_WORKSPACE/history" ]; then
-            mkdir -p /tmp/site-output/history
-            cp -r "$GITHUB_WORKSPACE/history/"* /tmp/site-output/history/
-          fi
-          if [ -d "$GITHUB_WORKSPACE/api" ]; then
-            mkdir -p /tmp/site-output/api
-            cp -r "$GITHUB_WORKSPACE/api/"* /tmp/site-output/api/
-          fi
-          ls -la /tmp/site-output/
-          ls -la /tmp/site-output/history/ 2>/dev/null || echo "no history"
+          # Include data files for local access
+          [ -d "$GITHUB_WORKSPACE/history" ] && cp -r "$GITHUB_WORKSPACE/history" /tmp/site-output/
+          [ -d "$GITHUB_WORKSPACE/api" ] && cp -r "$GITHUB_WORKSPACE/api" /tmp/site-output/
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
