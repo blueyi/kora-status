@@ -6,11 +6,11 @@
 
 ## Monitored Services
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| Kora Web | `kora.maxwi.com` | Main web application |
+| Service  | URL                         | Description                 |
+| -------- | --------------------------- | --------------------------- |
+| Kora Web | `kora.maxwi.com`            | Main web application        |
 | Kora API | `api.kora.maxwi.com/health` | API Gateway health endpoint |
-| Kora Hub | `kora.maxwi.com/hub` | Agent marketplace |
+| Kora Hub | `kora.maxwi.com/hub`        | Agent marketplace           |
 
 ## How It Works
 
