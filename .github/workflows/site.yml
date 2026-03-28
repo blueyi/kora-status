@@ -19,3 +19,18 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT || github.token }}
           command: site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./__sapper__/export
+  deploy:
+    needs: site
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
