@@ -19,23 +19,13 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
-      - name: Find and deploy site
+      - name: Prepare site output
         run: |
-          echo "=== Finding __sapper__/export ==="
-          find $GITHUB_WORKSPACE -name "__sapper__" -type d 2>/dev/null
-          find /home/runner -name "__sapper__" -type d 2>/dev/null || true
-          EXPORT_DIR=$(find /home/runner -path "*__sapper__/export" -type d 2>/dev/null | head -1)
-          if [ -z "$EXPORT_DIR" ]; then
-            EXPORT_DIR=$(find $GITHUB_WORKSPACE -path "*__sapper__/export" -type d 2>/dev/null | head -1)
-          fi
-          echo "Found export dir: $EXPORT_DIR"
-          if [ -n "$EXPORT_DIR" ]; then
-            ls -la "$EXPORT_DIR"
-            cp -r "$EXPORT_DIR"/* /tmp/site-output/
-          else
-            echo "ERROR: __sapper__/export not found!"
-            exit 1
-          fi
+          EXPORT_DIR=$(find $GITHUB_WORKSPACE -path "*__sapper__/export" -type d | head -1)
+          echo "Export dir: $EXPORT_DIR"
+          mkdir -p /tmp/site-output
+          cp -r "$EXPORT_DIR"/* /tmp/site-output/
+          ls -la /tmp/site-output/
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
