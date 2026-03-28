@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: upptime/uptime-monitor@v1.39.0
@@ -21,3 +19,26 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+      - name: Find and deploy site
+        run: |
+          echo "=== Finding __sapper__/export ==="
+          find $GITHUB_WORKSPACE -name "__sapper__" -type d 2>/dev/null
+          find /home/runner -name "__sapper__" -type d 2>/dev/null || true
+          EXPORT_DIR=$(find /home/runner -path "*__sapper__/export" -type d 2>/dev/null | head -1)
+          if [ -z "$EXPORT_DIR" ]; then
+            EXPORT_DIR=$(find $GITHUB_WORKSPACE -path "*__sapper__/export" -type d 2>/dev/null | head -1)
+          fi
+          echo "Found export dir: $EXPORT_DIR"
+          if [ -n "$EXPORT_DIR" ]; then
+            ls -la "$EXPORT_DIR"
+            cp -r "$EXPORT_DIR"/* /tmp/site-output/
+          else
+            echo "ERROR: __sapper__/export not found!"
+            exit 1
+          fi
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: /tmp/site-output
+          cname: status.kora.maxwi.com
