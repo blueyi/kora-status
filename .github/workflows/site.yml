@@ -20,9 +20,4 @@ jobs:
           command: site
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
-          publish_dir: ./__sapper__/export
-          cname: status.kora.maxwi.com
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
