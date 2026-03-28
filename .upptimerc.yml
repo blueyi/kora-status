@@ -1,11 +1,8 @@
-# Kora Status — Upptime Configuration
-# https://upptime.js.org/docs/configuration
-
 owner: blueyi
 repo: kora-status
 
 sites:
-  - name: Kora Web
+  - name: Kora Platform
     url: https://kora.maxwi.com
     icon: https://kora.maxwi.com/favicon.ico
     maxResponseTime: 5000
@@ -21,25 +18,14 @@ sites:
     url: https://kora.maxwi.com/hub
     maxResponseTime: 5000
 
+  - name: Admin Panel
+    url: https://admin.kora.maxwi.com
+    maxResponseTime: 5000
+
 status-website:
   cname: status.kora.maxwi.com
   logoUrl: https://kora.maxwi.com/favicon.ico
   name: Kora Status
-  introTitle: "**Kora** is the AI assistant platform that works across all your messaging channels."
-  introMessage: "This is the uptime monitor and status page for [Kora](https://kora.maxwi.com), powered by [Upptime](https://github.com/upptime/upptime). We check service availability every 5 minutes."
-  navbar:
-    - title: Home
-      href: https://kora.maxwi.com
-    - title: GitHub
-      href: https://github.com/blueyi/kora
-
-i18n:
-  activeIncidents: Active incidents
-  allSystemsOperational: All systems operational
-  incidentReport: Incident report for $SITE
-  liveStatus: Live status
-  overallUptime: Overall uptime
-  pastIncidents: Past incidents
 
 workflowSchedule:
   uptime:

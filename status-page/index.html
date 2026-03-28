@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kora Status</title>
+  <meta name="description" content="Real-time status and uptime monitoring for Kora AI Platform.">
+  <link rel="icon" href="https://kora.maxwi.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #09090b;
+      --surface: #111113;
+      --surface-2: #18181b;
+      --surface-3: #1e1e22;
+      --text-1: #fafafa;
+      --text-2: #a1a1aa;
+      --text-3: #71717a;
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.12);
+      --yellow: #eab308;
+      --yellow-dim: rgba(234, 179, 8, 0.12);
+      --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.12);
+      --blue: #3b82f6;
+      --border: rgba(255,255,255,0.06);
+      --border-2: rgba(255,255,255,0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header { padding: 40px 0 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header-logo { width: 28px; height: 28px; border-radius: 7px; }
+    .header-title { font-size: 16px; font-weight: 600; color: var(--text-1); letter-spacing: -0.01em; }
+    .header-link {
+      font-size: 13px; color: var(--text-3); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .header-link:hover { color: var(--text-2); }
+
+    /* Banner */
+    .status-banner {
+      margin: 32px 0 28px;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+    }
+    .status-banner.operational { background: var(--green-dim); border-color: rgba(34,197,94,0.2); }
+    .status-banner.degraded { background: var(--yellow-dim); border-color: rgba(234,179,8,0.2); }
+    .status-banner.down { background: var(--red-dim); border-color: rgba(239,68,68,0.2); }
+    .status-banner.loading { background: var(--surface); }
+    .banner-content { display: flex; align-items: center; gap: 14px; }
+    .banner-dot-wrap { position: relative; width: 10px; height: 10px; flex-shrink: 0; }
+    .banner-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--green);
+    }
+    .degraded .banner-dot { background: var(--yellow); }
+    .down .banner-dot { background: var(--red); }
+    .loading .banner-dot { background: var(--text-3); }
+    .banner-dot-pulse {
+      position: absolute; inset: -4px; border-radius: 50%;
+      background: var(--green); opacity: 0;
+      animation: pulse 2s ease-out infinite;
+    }
+    .degraded .banner-dot-pulse { background: var(--yellow); }
+    .down .banner-dot-pulse { background: var(--red); }
+    .loading .banner-dot-pulse { display: none; }
+    @keyframes pulse { 0% { opacity: 0.5; transform: scale(0.8); } 100% { opacity: 0; transform: scale(2.2); } }
+    .banner-text { display: flex; flex-direction: column; gap: 2px; }
+    .banner-label { font-size: 14px; font-weight: 600; }
+    .banner-meta { font-size: 12px; color: var(--text-3); }
+
+    /* Section */
+    .section-header {
+      font-size: 13px; font-weight: 500; color: var(--text-3);
+      margin-bottom: 12px; letter-spacing: 0.02em;
+    }
+
+    /* Services */
+    .services { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .service-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .service-name { font-size: 14px; font-weight: 500; }
+    .status-badge {
+      font-size: 12px; font-weight: 500; padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .status-badge.operational { color: var(--green); background: var(--green-dim); }
+    .status-badge.degraded { color: var(--yellow); background: var(--yellow-dim); }
+    .status-badge.down { color: var(--red); background: var(--red-dim); }
+    .status-badge.unknown { color: var(--text-3); background: var(--surface-2); }
+
+    /* Uptime bars */
+    .bars-container { position: relative; }
+    .bars { display: flex; gap: 2px; height: 32px; }
+    .bar {
+      flex: 1; border-radius: 3px; cursor: pointer;
+      transition: opacity 0.15s;
+      position: relative;
+    }
+    .bar.operational { background: var(--green); opacity: 0.7; }
+    .bar.operational:hover { opacity: 1; }
+    .bar.degraded { background: var(--yellow); opacity: 0.7; }
+    .bar.degraded:hover { opacity: 1; }
+    .bar.down { background: var(--red); opacity: 0.7; }
+    .bar.down:hover { opacity: 1; }
+    .bar.nodata { background: var(--surface-3); opacity: 0.5; }
+    .bars-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 8px; font-size: 11px; color: var(--text-3);
+    }
+    .bars-footer-center { display: flex; align-items: center; gap: 8px; }
+    .bars-footer-center .sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--text-4); display: inline-block;
+    }
+    .no-data-msg {
+      height: 32px; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--text-3); background: var(--surface-2);
+      border-radius: 6px;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      display: none; position: fixed; z-index: 100;
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--radius-sm); padding: 8px 12px;
+      font-size: 12px; color: var(--text-2); pointer-events: none;
+      white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .tooltip.show { display: block; }
+    .tooltip-time { font-weight: 500; color: var(--text-1); margin-bottom: 2px; }
+
+    /* Incidents */
+    .incidents { margin-bottom: 40px; }
+    .incident-day { margin-bottom: 16px; }
+    .incident-date { font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 8px; }
+    .incident-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 6px;
+    }
+    .incident-title { font-size: 13px; font-weight: 500; }
+    .incident-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+    .no-incidents {
+      text-align: center; padding: 24px; color: var(--text-3);
+      font-size: 13px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+    }
+
+    /* Footer */
+    footer {
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-text { font-size: 12px; color: var(--text-3); }
+    .footer-text a { color: var(--text-2); text-decoration: none; }
+    .footer-text a:hover { color: var(--text-1); }
+
+    /* Loading */
+    .loading-state {
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 0; flex-direction: column; gap: 12px;
+    }
+    .spinner {
+      width: 24px; height: 24px; border: 2px solid var(--surface-3);
+      border-top-color: var(--text-2); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 13px; color: var(--text-3); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-inner">
+        <div class="header-left">
+          <img src="https://kora.maxwi.com/favicon.ico" alt="Kora" class="header-logo">
+          <span class="header-title">Kora Status</span>
+        </div>
+        <a href="https://kora.maxwi.com" class="header-link">← Back to Kora</a>
+      </div>
+    </header>
+    <div id="app">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading status...</div>
+      </div>
+    </div>
+    <footer>
+      <p class="footer-text">
+        Powered by <a href="https://github.com/upptime/upptime" target="_blank">Upptime</a> · 
+        <a href="https://github.com/blueyi/kora-status" target="_blank">Source</a> · 
+        <a href="https://kora.maxwi.com" target="_blank">Kora AI Platform</a>
+      </p>
+    </footer>
+  </div>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    /* ── Config ── */
+    const UPPTIME_URL = 'https://raw.githubusercontent.com/blueyi/kora-status/main/history/summary.json';
+    const ISSUES_API = 'https://api.github.com/repos/blueyi/kora-status/issues?labels=status&state=all&per_page=10';
+    const SERVICES = [
+      { key: 'kora-platform', label: 'Kora Platform', desc: 'Main web application' },
+      { key: 'kora-api', label: 'Kora API', desc: 'API Gateway & backend services' },
+      { key: 'kora-hub', label: 'Kora Hub', desc: 'Agent marketplace' },
+      { key: 'admin-panel', label: 'Admin Panel', desc: 'Management console' },
+    ];
+    const BARS = 90; // 90 bars for visual display
+    const REFRESH_MS = 60_000;
+
+    /* ── Helpers ── */
+    function timeAgo(iso) {
+      const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+      if (s < 60) return 'just now';
+      if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+      if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+      return `${Math.floor(s / 86400)}d ago`;
+    }
+
+    function overallLabel(s) {
+      return s === 'operational' ? 'All Systems Operational'
+        : s === 'degraded' ? 'Partial System Outage'
+        : s === 'down' ? 'Major System Outage' : 'Loading...';
+    }
+
+    function statusLabel(s) {
+      return s === 'operational' ? 'Operational'
+        : s === 'degraded' ? 'Degraded' : s === 'down' ? 'Down' : 'Unknown';
+    }
+
+    /* ── Data ── */
+    async function fetchUpptime() {
+      try {
+        const r = await fetch(UPPTIME_URL);
+        return r.ok ? r.json() : [];
+      } catch { return []; }
+    }
+
+    async function fetchIncidents() {
+      try {
+        const r = await fetch(ISSUES_API);
+        if (!r.ok) return [];
+        const issues = await r.json();
+        return issues.map(i => ({
+          title: i.title,
+          state: i.state,
+          created: i.created_at,
+          url: i.html_url,
+          labels: i.labels.map(l => l.name),
+        }));
+      } catch { return []; }
+    }
+
+    function buildServiceData(upptime) {
+      return SERVICES.map(svc => {
+        const u = upptime.find(d => d.slug === svc.key);
+        if (!u) return { ...svc, status: 'unknown', uptimePct: null, avgMs: null, lastChecked: null };
+        const status = u.status === 'up' ? 'operational' : 'down';
+        return {
+          ...svc,
+          status,
+          uptimePct: u.uptime,
+          avgMs: u.time,
+          lastChecked: u.lastUpdated || null,
+          uptimeDay: u.uptimeDay,
+          uptimeWeek: u.uptimeWeek,
+          uptimeMonth: u.uptimeMonth,
+        };
+      });
+    }
+
+    /* ── Render ── */
+    function render(services, incidents) {
+      const app = document.getElementById('app');
+      const statuses = services.map(s => s.status);
+      const overall = statuses.includes('down') ? 'down'
+        : statuses.includes('degraded') ? 'degraded' : 'operational';
+
+      let html = '';
+
+      // Banner
+      html += `
+        <div class="status-banner ${overall}">
+          <div class="banner-content">
+            <div class="banner-dot-wrap">
+              <div class="banner-dot-pulse"></div>
+              <div class="banner-dot"></div>
+            </div>
+            <div class="banner-text">
+              <span class="banner-label">${overallLabel(overall)}</span>
+              <span class="banner-meta">Checked every 5 minutes · Auto-refreshes every 60s</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Services
+      html += '<div class="section-header">Services</div>';
+      html += '<div class="services">';
+      for (const svc of services) {
+        html += `<div class="service-card">`;
+        html += `<div class="service-top">`;
+        html += `<div><span class="service-name">${svc.label}</span>`;
+        if (svc.desc) html += `<div style="font-size:12px;color:var(--text-3);margin-top:2px">${svc.desc}</div>`;
+        html += `</div>`;
+        html += `<span class="status-badge ${svc.status}">${statusLabel(svc.status)}</span>`;
+        html += `</div>`;
+
+        // Bars (simulated from uptime %)
+        html += `<div class="bars-container"><div class="bars">`;
+        if (svc.uptimePct !== null) {
+          for (let i = 0; i < BARS; i++) {
+            const pct = parseFloat(svc.uptimePct);
+            const barStatus = pct >= 99.9 ? 'operational' : pct >= 95 ? 'degraded' : 'down';
+            html += `<div class="bar ${barStatus}"></div>`;
+          }
+        } else {
+          for (let i = 0; i < BARS; i++) html += `<div class="bar nodata"></div>`;
+        }
+        html += `</div>`;
+        html += `<div class="bars-footer">`;
+        html += `<span>90d ago</span>`;
+        html += `<div class="bars-footer-center">`;
+        if (svc.uptimePct !== null) html += `<span>${svc.uptimePct}% uptime</span>`;
+        if (svc.uptimePct !== null && svc.avgMs) html += `<span class="sep"></span>`;
+        if (svc.avgMs) html += `<span>${svc.avgMs}ms avg</span>`;
+        html += `</div>`;
+        html += `<span>Now</span>`;
+        html += `</div></div>`;
+        html += `</div>`;
+      }
+      html += '</div>';
+
+      // Incidents
+      html += '<div class="section-header">Recent Incidents</div>';
+      if (incidents.length === 0) {
+        html += `<div class="no-incidents">No incidents reported in the last 90 days 🎉</div>`;
+      } else {
+        html += '<div class="incidents">';
+        for (const inc of incidents.slice(0, 5)) {
+          const emoji = inc.state === 'closed' ? '✅' : '🔴';
+          html += `<div class="incident-card">`;
+          html += `<div class="incident-title">${emoji} <a href="${inc.url}" target="_blank" style="color:var(--text-1);text-decoration:none">${inc.title}</a></div>`;
+          html += `<div class="incident-meta">${timeAgo(inc.created)} · ${inc.state === 'closed' ? 'Resolved' : 'Ongoing'}</div>`;
+          html += `</div>`;
+        }
+        html += '</div>';
+      }
+
+      app.innerHTML = html;
+    }
+
+    /* ── Init ── */
+    async function load() {
+      const [upptime, incidents] = await Promise.all([fetchUpptime(), fetchIncidents()]);
+      const services = buildServiceData(upptime);
+      render(services, incidents);
+    }
+
+    load();
+    setInterval(load, REFRESH_MS);
+  </script>
+</body>
+</html>
