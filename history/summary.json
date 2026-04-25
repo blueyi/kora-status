@@ -10,11 +10,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1341,
-    "timeDay": 1307,
+    "time": 1340,
+    "timeDay": 1324,
     "timeWeek": 1295,
-    "timeMonth": 1341,
-    "timeYear": 1341,
+    "timeMonth": 1340,
+    "timeYear": 1340,
     "dailyMinutesDown": {}
   },
   {
@@ -23,16 +23,16 @@
     "icon": "https://kora.maxwi.com/favicon.ico",
     "slug": "kora-api",
     "status": "up",
-    "uptime": "99.64%",
+    "uptime": "99.66%",
     "uptimeDay": "100.00%",
     "uptimeWeek": "100.00%",
-    "uptimeMonth": "99.64%",
-    "uptimeYear": "99.64%",
-    "time": 939,
-    "timeDay": 903,
+    "uptimeMonth": "99.66%",
+    "uptimeYear": "99.66%",
+    "time": 940,
+    "timeDay": 945,
     "timeWeek": 910,
-    "timeMonth": 939,
-    "timeYear": 939,
+    "timeMonth": 940,
+    "timeYear": 940,
     "dailyMinutesDown": {
       "2026-04-04": 137
     }
@@ -49,8 +49,8 @@
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
     "time": 401,
-    "timeDay": 388,
-    "timeWeek": 385,
+    "timeDay": 394,
+    "timeWeek": 384,
     "timeMonth": 401,
     "timeYear": 401,
     "dailyMinutesDown": {}
@@ -66,11 +66,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1309,
-    "timeDay": 1362,
-    "timeWeek": 1284,
-    "timeMonth": 1309,
-    "timeYear": 1309,
+    "time": 1308,
+    "timeDay": 1275,
+    "timeWeek": 1274,
+    "timeMonth": 1308,
+    "timeYear": 1308,
     "dailyMinutesDown": {}
   }
 ]
