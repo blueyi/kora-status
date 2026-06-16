@@ -5,19 +5,17 @@
     "icon": "https://kora.maxwi.com/favicon.ico",
     "slug": "kora-platform",
     "status": "up",
-    "uptime": "99.99%",
-    "uptimeDay": "99.48%",
-    "uptimeWeek": "99.93%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.99%",
-    "time": 1318,
-    "timeDay": 1229,
-    "timeWeek": 1292,
-    "timeMonth": 1259,
-    "timeYear": 1318,
-    "dailyMinutesDown": {
-      "2026-06-15": 7
-    }
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 1319,
+    "timeDay": 1225,
+    "timeWeek": 1305,
+    "timeMonth": 1258,
+    "timeYear": 1319,
+    "dailyMinutesDown": {}
   },
   {
     "name": "Kora API",
@@ -25,18 +23,17 @@
     "icon": "https://kora.maxwi.com/favicon.ico",
     "slug": "kora-api",
     "status": "up",
-    "uptime": "99.87%",
-    "uptimeDay": "99.52%",
-    "uptimeWeek": "99.93%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.87%",
+    "uptime": "99.88%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.88%",
     "time": 928,
-    "timeDay": 926,
-    "timeWeek": 911,
-    "timeMonth": 887,
+    "timeDay": 987,
+    "timeWeek": 919,
+    "timeMonth": 885,
     "timeYear": 928,
     "dailyMinutesDown": {
-      "2026-06-15": 7,
       "2026-04-04": 137
     }
   },
@@ -46,19 +43,17 @@
     "icon": "https://icons.duckduckgo.com/ip3/kora.maxwi.com.ico",
     "slug": "kora-hub",
     "status": "up",
-    "uptime": "99.99%",
-    "uptimeDay": "99.55%",
-    "uptimeWeek": "99.94%",
-    "uptimeMonth": "99.99%",
-    "uptimeYear": "99.99%",
-    "time": 392,
-    "timeDay": 382,
-    "timeWeek": 386,
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 393,
+    "timeDay": 399,
+    "timeWeek": 387,
     "timeMonth": 369,
-    "timeYear": 392,
-    "dailyMinutesDown": {
-      "2026-06-15": 6
-    }
+    "timeYear": 393,
+    "dailyMinutesDown": {}
   },
   {
     "name": "Admin Panel",
@@ -66,18 +61,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/admin.kora.maxwi.com.ico",
     "slug": "admin-panel",
     "status": "up",
-    "uptime": "99.99%",
-    "uptimeDay": "99.58%",
-    "uptimeWeek": "99.94%",
-    "uptimeMonth": "99.99%",
-    "uptimeYear": "99.99%",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
     "time": 1299,
-    "timeDay": 1245,
-    "timeWeek": 1293,
-    "timeMonth": 1258,
+    "timeDay": 1305,
+    "timeWeek": 1297,
+    "timeMonth": 1246,
     "timeYear": 1299,
-    "dailyMinutesDown": {
-      "2026-06-15": 6
-    }
+    "dailyMinutesDown": {}
   }
 ]
