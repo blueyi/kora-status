@@ -4,19 +4,19 @@
     "url": "https://kora.maxwi.com",
     "icon": "https://kora.maxwi.com/favicon.ico",
     "slug": "kora-platform",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.89%",
-    "uptimeWeek": "99.98%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
+    "status": "up",
+    "uptime": "99.88%",
+    "uptimeDay": "85.91%",
+    "uptimeWeek": "97.99%",
+    "uptimeMonth": "99.54%",
+    "uptimeYear": "99.88%",
     "time": 1292,
-    "timeDay": 1112,
-    "timeWeek": 1213,
+    "timeDay": 1127,
+    "timeWeek": 1215,
     "timeMonth": 1229,
     "timeYear": 1292,
     "dailyMinutesDown": {
-      "2026-07-27": 2
+      "2026-07-27": 203
     }
   },
   {
@@ -24,19 +24,19 @@
     "url": "https://api.kora.maxwi.com/health",
     "icon": "https://kora.maxwi.com/favicon.ico",
     "slug": "kora-api",
-    "status": "down",
-    "uptime": "99.92%",
-    "uptimeDay": "99.91%",
-    "uptimeWeek": "99.99%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "99.92%",
+    "status": "up",
+    "uptime": "99.81%",
+    "uptimeDay": "85.94%",
+    "uptimeWeek": "97.99%",
+    "uptimeMonth": "99.54%",
+    "uptimeYear": "99.81%",
     "time": 910,
-    "timeDay": 781,
+    "timeDay": 783,
     "timeWeek": 863,
     "timeMonth": 868,
     "timeYear": 910,
     "dailyMinutesDown": {
-      "2026-07-27": 1,
+      "2026-07-27": 202,
       "2026-04-04": 137
     }
   },
@@ -45,19 +45,19 @@
     "url": "https://kora.maxwi.com/hub",
     "icon": "https://icons.duckduckgo.com/ip3/kora.maxwi.com.ico",
     "slug": "kora-hub",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.94%",
-    "uptimeWeek": "99.99%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
+    "status": "up",
+    "uptime": "99.88%",
+    "uptimeDay": "85.97%",
+    "uptimeWeek": "98.00%",
+    "uptimeMonth": "99.54%",
+    "uptimeYear": "99.88%",
     "time": 383,
-    "timeDay": 346,
-    "timeWeek": 360,
+    "timeDay": 344,
+    "timeWeek": 359,
     "timeMonth": 362,
     "timeYear": 383,
     "dailyMinutesDown": {
-      "2026-07-27": 1
+      "2026-07-27": 202
     }
   },
   {
@@ -65,19 +65,19 @@
     "url": "https://admin.kora.maxwi.com",
     "icon": "https://icons.duckduckgo.com/ip3/admin.kora.maxwi.com.ico",
     "slug": "admin-panel",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.97%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
+    "status": "up",
+    "uptime": "99.88%",
+    "uptimeDay": "86.01%",
+    "uptimeWeek": "98.00%",
+    "uptimeMonth": "99.54%",
+    "uptimeYear": "99.88%",
     "time": 1272,
-    "timeDay": 1126,
-    "timeWeek": 1200,
+    "timeDay": 1123,
+    "timeWeek": 1199,
     "timeMonth": 1211,
     "timeYear": 1272,
     "dailyMinutesDown": {
-      "2026-07-27": 0
+      "2026-07-27": 201
     }
   }
 ]
