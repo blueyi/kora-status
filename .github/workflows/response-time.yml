@@ -9,7 +9,6 @@ jobs:
   release:
     name: Check response time
     runs-on: ubuntu-latest
-    env:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
